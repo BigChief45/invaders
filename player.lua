@@ -1,6 +1,9 @@
 require 'bullet'
 
 Player = class('Player')
+
+Player.static.image = love.graphics.newImage('img/player.png')
+
 function Player:initialize(x, y)
 	self.x = x
 	self.y = y
@@ -14,6 +17,7 @@ end
 function Player:fire()
 	if self.cooldown <= 0 then
 	 	self.cooldown = 20
+
 	 	local bullet = Bullet:new(self.x + ((80 / 2) - 5), self.y)
 	 	table.insert(self.bullets, bullet)
 	end
