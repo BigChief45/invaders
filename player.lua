@@ -18,7 +18,25 @@ function Player:fire()
 	if self.cooldown <= 0 then
 	 	self.cooldown = 20
 
-	 	local bullet = Bullet:new(self.x + ((80 / 2) - 5), self.y)
+	 	local bullet = Bullet:new(self.x + ((80 / 2) ), self.y)
 	 	table.insert(self.bullets, bullet)
+	end
+end
+
+function Player:moveRight()
+	self.x = self.x + self.speed
+end
+
+function Player:moveLeft()
+	self.x = self.x - self.speed
+end
+
+function Player:removeBullets()
+	local limit = -10
+
+	for i,b in ipairs(self.bullets) do
+		if b.y < limit then
+			table.remove(self.bullets, i)
+		end
 	end
 end

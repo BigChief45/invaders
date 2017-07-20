@@ -8,7 +8,7 @@ function Enemy:initialize(x, y)
 	self.x = x
 	self.y = y
 
-	self.speed = 10
+	self.speed = 1
 	self.cooldown = 20
 
 	self.bullets = {}
@@ -21,4 +21,8 @@ function Enemy:fire()
 		local bullet = Bullet:new(self.x, self.y)
 		table.insert(self.bullets, bullet)
 	end
+end
+
+function Enemy:move()
+  self.y = self.y + self.speed
 end

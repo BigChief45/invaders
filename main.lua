@@ -4,6 +4,8 @@ require 'enemy'
 require 'utils'
 
 function love.load()
+	love.graphics.setDefaultFilter("nearest", "nearest")
+
 	player = Player:new(0, 550)
 	enemies = {}
 
@@ -15,9 +17,9 @@ function love.update(dt)
 	player.cooldown = player.cooldown - 1
 
 	if love.keyboard.isDown("right") then
-		player.x = player.x + player.speed
+		player:moveRight()
 	elseif love.keyboard.isDown("left") then
-		player.x = player.x - player.speed
+		player:moveLeft()
 	end
 
 	if love.keyboard.isDown("space") then
@@ -26,16 +28,16 @@ function love.update(dt)
 
 	-- Enemy movements
 	for _,e in pairs(enemies) do
-		e.y = e.y + 1
+		e:move()
 	end
 
 	-- Remove the bullets when they leave the screen
 	for i,b in ipairs(player.bullets) do
-		if b.y < -10 then
+		if b.y < Bullet.static.BULLET_LIMIT then
 			table.remove(player.bullets, i)
 		end
 
-		b.y = b.y - 10
+		b:move()
 	end
 end
 
